@@ -177,24 +177,7 @@ $(document).ready(function(){
 		})
 	}
 
-	//For Fetch Brand
-
-	fetch_brand();
-	function fetch_brand(){
-		$.ajax({
-			url:DOMAIN+"/includes/process.php",
-			method:"POST",
-			data:{getBrand:1},
-			success:function(data){
-				
-				var choose="<option value=''>Choose Brand</option>";				
-				$("#select_brand").html(choose+data);
-			}
-
-		})
-	}
-
-	//For Category Insert 
+//For Category Insert 
 
 	$("#category_form").on("submit",function(){
 
@@ -213,6 +196,7 @@ $(document).ready(function(){
 						$("#category_name").removeClass("border-danger");
 						$("#cat_error").html("<span class='text-success'>Category Added Successfully</span>");
 						$("#category_name").val("");
+						fetch_category();
 						
 					}					
 					else{
@@ -227,6 +211,24 @@ $(document).ready(function(){
 
 
 	});
+
+	//For Fetch Brand
+
+	fetch_brand();
+	function fetch_brand(){
+		$.ajax({
+			url:DOMAIN+"/includes/process.php",
+			method:"POST",
+			data:{getBrand:1},
+			success:function(data){
+				
+				var choose="<option value=''>Choose Brand</option>";				
+				$("#select_brand").html(choose+data);
+			}
+
+		})
+	}
+
 
 	//For Brand Insertion
 
@@ -245,6 +247,7 @@ $(document).ready(function(){
 						$("#brand_name").removeClass("border-danger");
 						$("#brand_error").html("<span class='text-success'>Brand Added Successfully</span>");
 						$("#brand_name").val("");
+						fetch_brand();
 					}
 					else{
 						alert(data);
@@ -257,13 +260,21 @@ $(document).ready(function(){
 	//For Product Insert
 
 	$("#product_form").on("submit",function(){
+		
+
 		$.ajax({
 			url:DOMAIN+"/includes/process.php",
 			method:"POST",
 			data:$("#product_form").serialize(),
 			success:function(data){
 				if(data="New_Product_Added"){
-					alert(data);
+					alert("New Product Added Successfully");
+					$("#added_date").val("");
+					$("#product_name").val("");
+					$("#select_cat").val("");
+					$("#select_brand").val("");
+					$("#product_price").val("");
+					$("#product_qty").val("");
 				}
 				else{
 					console.log(data);
