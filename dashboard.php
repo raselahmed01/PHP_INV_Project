@@ -63,7 +63,7 @@ if(!isset(($_SESSION["userid"]))){
 			        <h5 class="card-title">Categories</h5>
 			        <p class="card-text">Here you can manage your categories and add new parent & sub category </p>
 			        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#category"><i class="fa fa-plus">&nbsp;</i>Add</a>
-			        <a href="#" class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>Manage</a>
+			        <a href="manage_categories.php" class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>Manage</a>
 			      </div>
 			    </div>
 			</div>
