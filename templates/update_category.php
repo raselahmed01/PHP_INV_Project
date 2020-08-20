@@ -10,7 +10,7 @@
       <div class="modal-body">
         <form id="update_category_form" onsubmit="return false" autocomplete="off">
           <div class="form-group">
-            <label >Category Name</label>
+            <label >Category Name </label>
             <input type="hidden" name="cid" id="cid" value="">
             <input type="text" class="form-control" name="update_category_name" id="update_category_name" placeholder="Enter Category Name" >
             <small id="cat_error" class="form-text text-muted"></small>
