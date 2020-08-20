@@ -109,6 +109,41 @@ class Manage
 		}
 	}
 
+	public function getSingleRecord($table,$pk,$id)
+	{
+		$pre_stmt=$this->con->prepare("SELECT * FROM ".$table." WHERE ".$pk." =? LIMIT 1");
+		$pre_stmt->bind_param("i",$id);
+		$pre_stmt->execute() or die($this->con->error);
+		$result=$pre_stmt->get_result();
+
+		if($result->num_rows ==1){
+			$row = $result->fetch_assoc();
+		}
+		return $row;
+	}
+
+	public function updateRecord($table,$where,$fields)
+	{
+		$sql="";
+		$condition="";
+		foreach ($where as $key => $value) {
+			$condition .= $key ."='" .$value. "' AND "; 
+		}
+		$condition=substr($condition,0,-5);
+		foreach ($fields as $key => $value) {
+			$sql .= $key . "='" .$value. "', ";
+		}
+		$sql=substr($sql,0,-2);
+		$sql = "UPDATE ".$table." SET ".$sql." WHERE ".$condition;
+
+		if(mysqli_query($this->con,$sql)){
+			return "UPDATED";
+		}
+
+	}
+
+
+
 
 
 
@@ -121,6 +156,9 @@ class Manage
 
 
 // $obj=new Manage();
+
+// echo $obj->updateRecord("categories",["cid"=>1],["parent_cat"=>0,"category_name"=>"Electronics","status"=>1]);
+// print_r($obj->getSingleRecord("categories","cid",1)); 
 // echo $obj->deleteRecord("categories","cid",1);
 // echo "<pre>";
 

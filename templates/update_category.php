@@ -1,4 +1,4 @@
-<div class="modal fade" id="category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="update_category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -8,10 +8,11 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="category_form" onsubmit="return false" autocomplete="off">
+        <form id="update_category_form" onsubmit="return false" autocomplete="off">
           <div class="form-group">
             <label >Category Name</label>
-            <input type="text" class="form-control" name="category_name" id="category_name" placeholder="Enter Category Name" >
+            <input type="hidden" name="cid" id="cid" value="">
+            <input type="text" class="form-control" name="update_category_name" id="update_category_name" placeholder="Enter Category Name" >
             <small id="cat_error" class="form-text text-muted"></small>
           </div>
           <div class="form-group">
@@ -22,7 +23,7 @@
             </select>
             <!-- <small id="p_error" class="form-text text-muted"></small> -->
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Update</button>
         </form>
       </div>
       <div class="modal-footer">

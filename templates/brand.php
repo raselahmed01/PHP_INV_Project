@@ -8,7 +8,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="brand_form" onsubmit="return false">
+        <form id="brand_form" onsubmit="return false" autocomplete="off">
           <div class="form-group">
             <label >Brand Name</label>
             <input type="text" class="form-control" name="brand_name" id="brand_name" placeholder="Enter Brand Name" >
