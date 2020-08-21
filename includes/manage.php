@@ -20,6 +20,9 @@ class Manage
 		if ($table=="categories"){
 			$sql="SELECT p.category_name as category,c.category_name as parent,p.cid,p.status FROM categories p LEFT JOIN categories c ON p.parent_cat=c.cid ".$a["limit"];
 		}
+		else{
+			$sql="SELECT * FROM ".$table." ".$a["limit"];
+		}
 		$result=$this->con->query($sql)or die($this->con->error);
 		$rows=array();
 		if($result->num_rows > 0){

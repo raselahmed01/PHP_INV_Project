@@ -33,7 +33,7 @@ $(document).ready(function(){
 				data:{deleteCategory:1,id:did},
 				success:function(data){
 						if(data=="DEPENDENT_CATEGORY"){
-							alert("Ypu can not delete this ... its a dependent category");
+							alert("You can not delete this ... its a dependent category");
 						}
 						else if(data=="CATEGORY_DELETED"){
 							alert("Category Deleted Succefully ");
@@ -100,28 +100,115 @@ $(document).ready(function(){
 				url:DOMAIN+"/includes/process.php",
 				method:"POST",
 				data:$("#update_category_form").serialize(),				
-				success:function(data){
-					// console.log (data);
-					// alert(data);
+				success:function(data){					
 					window.location.href="";
-					// if(data=="UPDATED"){
-					// // 	$("#update_category_name").removeClass("border-danger");
-					// // 	$("#cat_error").html("<span class='text-success'>Category Updated Successfully</span>");
-					// // 	$("#update_category_name").val("");
-					// 	// fetch_category();
-
-						
-					// }					
-					// else{
-					// 	alert(data);
-					// }					
-
 				}
 				
-			});
-		
+			});		
 		}
 	})
+
+	//------------------Manage Brand--------------
+
+	//Fetch Brand with pagination
+	manageBrand(1);
+	function manageBrand(pn){
+		$.ajax({
+			url : DOMAIN+"/includes/process.php",
+			method:"POST",
+			data:{manageBrand:1,pageno:pn},
+			success:function(data){
+					$("#get_brand").html(data);
+			}
+		})
+	}
+
+	$("body").delegate(".page-link","click",function(){
+		var pn =$(this).attr("pn");
+		manageBrand(pn);
+	})
+
+	//Delete Brand
+
+	$("body").delegate(".dlt_brand","click",function(){
+		var did = $(this).attr("did");
+		if(confirm("Are you sure ? You want to delete")){
+			$.ajax({
+				url : DOMAIN+"/includes/process.php",
+				method:"POST",
+				data:{deleteBrand:1,id:did},
+				success:function(data){
+						if(data=="DELETED"){
+							alert("Deleted succefully");
+							manageBrand(1);
+						}
+						else{
+							alert(data);
+						}
+					}
+				})	
+			}
+			else{
+				alert("No");
+			}
+		})
+
+
+	//Fetch Brand
+
+	fetch_brand();
+	function fetch_brand(){
+		$.ajax({
+			url:DOMAIN+"/includes/process.php",
+			method:"POST",
+			data:{getBrand:1},
+			success:function(data){
+				
+				var choose="<option value=''>Choose Brand</option>";				
+				$("#select_brand").html(choose+data);
+			}
+
+		})
+	}
+
+	//Update Brand
+
+	$("body").delegate(".edt_brand","click",function(){
+		var eid =$(this).attr("eid");
+		$.ajax({
+			url:DOMAIN+"/includes/process.php",
+			method:"POST",
+			dataType:"json",
+			data:{updateBrand:1,id:eid},
+			success:function(data){				
+				// alert(data);				
+				// console.log(data);				
+				$("#bid").val(data["bid"]);
+				$("#update_brand_name").val(data["brand_name"]);
+			}
+		})
+	})
+
+	$("#update_brand_form").on("submit",function(){
+
+		if($("#update_brand_name").val()==""){
+			$("#update_brand_name").addClass("border-danger");
+			$("#brand_error").html("<spanclass='text-danger'>Please enter a Brand name</span>");
+			
+		}
+		else{
+			$.ajax({
+				url:DOMAIN+"/includes/process.php",
+				method:"POST",
+				data:$("#update_brand_form").serialize(),				
+				success:function(data){	
+					window.location.href="";
+				}
+				
+			});		
+		}
+	})
+
 
 
 
