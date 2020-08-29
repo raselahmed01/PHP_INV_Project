@@ -45,7 +45,7 @@ if(!isset(($_SESSION["userid"]))){
 						      <div class="card-body">
 						        <h5 class="card-title">New Order</h5>
 						        <p class="card-text">Here you can create invoice and make new orders.</p>
-						        <a href="#" class="btn btn-primary">New Order</a>
+						        <a href="new_order.php" class="btn btn-primary">New Order</a>
 						      </div>
 						    </div>
 						</div>

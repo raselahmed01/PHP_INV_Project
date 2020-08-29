@@ -291,7 +291,36 @@ if(isset($_POST["update_product_name"])){
 
 
 
+//--------------------Order Processing-----------------
 
+if(isset($_POST["getNewOrderItem"])){
+
+	$obj=new DBoperation();
+	$rows=$obj->getData("products");
+
+?>
+	<tr>
+		<td><b id="number">1</b></td>
+		<td>
+			<select name="pid[]" class="form-control form-control-sm">
+				<?php foreach ($rows as $row) {	?>
+				<option value="<?php echo $row['pid']; ?>"><?php echo $row['product_name'];?></option>	<?php }?>
+			</select>
+		</td>
+		<td>
+			<input type="text" name="tqty[]" class="form-control form-control-sm" readonly>
+		</td>
+		<td>
+			<input type="text" name="qty[]" class="form-control form-control-sm" required>
+		</td>
+		<td>
+			<input type="text" name="price[]" class="form-control form-control-sm" readonly>
+		</td>
+		<td>Tk. 0</td>
+	</tr>
+
+<?php	
+}
 
 
 
