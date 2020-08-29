@@ -91,7 +91,7 @@ if(isset($_POST["manageCategory"])){
 			?>
 
 			<tr>
-		      <th ><?php echo $n; ?></th>
+		      <td ><?php echo $n; ?></td>
 		      <td><?php echo $row["category"]; ?></td>
 		      <td><?php echo  $row["parent"]?></td>
 		      <td><a href="#" class="btn btn-sm btn-success">Active</a></td>
@@ -160,7 +160,7 @@ if(isset($_POST["manageBrand"])){
 			?>
 
 			<tr>
-		      <th ><?php echo $n; ?></th>
+		      <td ><?php echo $n; ?></td>
 		      <td><?php echo $row["brand_name"]; ?></td>		      
 		      <td><a href="#" class="btn btn-sm btn-success">Active</a></td>
 		      <td>
@@ -210,10 +210,84 @@ if(isset($_POST["update_brand_name"])){
 }	
 
 
+//-----------------Manage Product
+
+	//Fetch Product With pagination
+
+	if(isset($_POST["manageProduct"])){
+	$m=new Manage();
+	$result=$m->manageRecordWithPagination('products',$_POST["pageno"]);
+	$rows=$result["rows"];
+	$pagination=$result["pagination"];
+
+	if(count($rows)>0){
+		$n= (($_POST["pageno"] - 1)*5)+1;
+		foreach ($rows as $row) {
+			?>
+
+			<tr>
+		      <td ><?php echo $n; ?></td>
+		      <td ><?php echo $row["product_name"]; ?></td>
+		      <td ><?php echo $row["category_name"]; ?></td>
+		      <td><?php echo $row["brand_name"]; ?></td>		      
+		      <td><?php echo $row["product_price"]; ?></td>		      
+		      <td><?php echo $row["product_stock"]; ?></td>		      
+		      <td><?php echo $row["p_added_date"]; ?></td>		      		      
+		      <td><a href="#" class="btn btn-sm btn-success">Active</a></td>
+		      <td>
+		      	<a href="#" data-toggle="modal" data-target="#update_product" eid="<?php echo $row["pid"];?>"class=" btn btn-sm btn-primary edt_product">Edit</a>
+		      	<a href="#" did="<?php echo $row["pid"];?>"class=" btn btn-sm btn-danger dlt_product ">Delete</a>
+		      </td>
+		    </tr>
+
+			<?php
+			$n++;
+		}
+		?>
+
+		<tr><td colspan="9"><?php echo $pagination;?></td></tr>
+		<?php
+		exit();
+	}
+}
+
+//Delete PRODUCT
+
+if(isset($_POST["deleteProduct"])){
+
+	$m=new Manage();
+	$result=$m->deleteRecord("products","pid",$_POST["id"]);
+	echo $result;
+	exit();
+}
 
 
+//Get Single Record For Update brand
+
+if(isset($_POST["updateProduct"])){
+	$m=new Manage();
+	$result=$m->getSingleRecord("products","pid",$_POST["id"]);
+	echo json_encode($result);
+	exit();
+}
+
+//Update Brand Record
+
+if(isset($_POST["update_product_name"])){
+	$obj=new Manage();
+	$id= $_POST["pid"];
+	$name = $_POST["update_product_name"];
+	$category =$_POST["select_cat"];
+	$brand=$_POST["select_brand"];	
+	$price=$_POST["product_price"];
+	$qty=$_POST["product_qty"];
+	$date=$_POST["added_date"];
 
 
+	$result = $obj->updateRecord("products",["pid"=>$id],["cid"=>$category,"bid"=>$brand,"product_name"=>$name,"product_price"=>$price,"product_stock"=>$qty,"p_added_date"=>$date,"p_status"=>1]);
+	echo $result;
+	exit();
+}
 
 
 
