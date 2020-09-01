@@ -300,30 +300,41 @@ if(isset($_POST["getNewOrderItem"])){
 
 ?>
 	<tr>
-		<td><b id="number">1</b></td>
+		<td><b class="number">1</b></td>
 		<td>
-			<select name="pid[]" class="form-control form-control-sm">
+			<select name="pid[]" class="form-control form-control-sm pid">
+				<option value="">Choose Product</option>
 				<?php foreach ($rows as $row) {	?>
 				<option value="<?php echo $row['pid']; ?>"><?php echo $row['product_name'];?></option>	<?php }?>
 			</select>
 		</td>
 		<td>
-			<input type="text" name="tqty[]" class="form-control form-control-sm" readonly>
+			<input type="text" name="tqty[]" class="form-control form-control-sm tqty" readonly>
 		</td>
 		<td>
-			<input type="text" name="qty[]" class="form-control form-control-sm" required>
+			<input type="text" name="qty[]" class="form-control form-control-sm qty" required>
 		</td>
 		<td>
-			<input type="text" name="price[]" class="form-control form-control-sm" readonly>
+			<input type="text" name="price[]" class="form-control form-control-sm price" readonly>
 		</td>
-		<td>Tk. 0</td>
+		<span>
+			<input type="hidden" name="pro_name[]" class="form-control form-control-sm pro_name" >
+		</span>
+		<td>Tk.<span class="amnt"></span></td>
 	</tr>
 
 <?php	
 }
 
 
+//Get Price and Qty of One Item
 
+if(isset($_POST["getPriceAndQty"])){
+	$m=new Manage();
+	$result=$m->getSingleRecord("products","pid",$_POST["id"]);
+	echo json_encode($result);
+	exit();
+}
 
 
 

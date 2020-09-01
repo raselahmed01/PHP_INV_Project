@@ -16,6 +16,7 @@ if(!isset(($_SESSION["userid"]))){
 
 </head>
 <body>
+	<div class="overlay"><div class="loader"></div></div>
 	<!------ Navbar ------>
 	<?php include_once("./templates/header.php");?>
 	<br/>
@@ -94,7 +95,7 @@ if(!isset(($_SESSION["userid"]))){
 							<div class="form-group row">
 					    		<label for="sub_total" class="col-sm-3 col-form-label" align="right">Sub Total</label>
 					    		<div class="col-sm-6">
-					    			<input type="text" name="sub_total" id="sub_total"  class="form-control form-control-sm" required />
+					    			<input type="text" name="sub_total" id="sub_total"  class="form-control form-control-sm" required readonly />
 					    		</div>
 				    		</div>
 				    		<div class="form-group row">
